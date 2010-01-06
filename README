@@ -2,4 +2,5 @@ Utility classes for unit test signals.
 
 Example:
 
-Async.proceedOnEvent(this, new SignalAsync(onTest), SignalAsyncEvent.CALLED);
+Async.proceedOnEvent(this, new SignalAsync(instance.someSignal), SignalAsyncEvent.CALLED);
+instance.doSomeThingShouldDispatchSomeSignal();

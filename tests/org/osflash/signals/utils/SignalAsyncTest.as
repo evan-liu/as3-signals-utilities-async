@@ -26,8 +26,7 @@ package org.osflash.signals.utils {
     }
     [Test(async,timeout="500")]
     public function testAsync():void {
-      Async.handleEvent(this, new SignalAsync(onTest), SignalAsyncEvent.CALLED,
-                        signalCalledHandler);
+      Async.handleEvent(this, instance, SignalAsyncEvent.CALLED, signalCalledHandler);
       onTest.dispatch(7);
     }
     //==========================================================================
