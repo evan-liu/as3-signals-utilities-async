@@ -1,0 +1,5 @@
+Utility classes for unit test signals.
+
+Example:
+
+Async.proceedOnEvent(this, new SignalAsync(onTest), SignalAsyncEvent.CALLED);
