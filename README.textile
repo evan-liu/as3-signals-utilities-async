@@ -1,0 +1,70 @@
+h2. Utility classes for unit test signals.
+
+This library is a utility for "Robert Penner":http://robertpenner.com/ 's "as3-signals":http://github.com/robertpenner/as3-signals with some delegate methods to test them with FlexUnit4:
+
+* proceedOnSignal
+* handleSignal
+* failOnSignal
+* registerFailureSignal
+
+h3. proceedOnSignal
+
+Use this method to ensure that some signal is dispatched during an asynchronous test.
+
+<pre>
+[Test(async)]
+public function test_proceedOnSignal():void 
+{
+    var model:IModel = new SomeModel();
+    proceedOnSignal(this, model.changedSignal);
+    model.doSomethingChange();
+}
+</pre>
+
+h3. handleSignal
+
+Use this method to ensure that some signal is dispatched and do more assertions in the handler. The handler method must have two arguments. The first one is a SignalAsyncEvent, you can get all arguments passed by the signal's dispatch() method by event.args. The second Object typed argument is the data passed by the passThroughData argument in the handleSignal method.
+
+<pre>
+[Test(async)] 
+public function change_user():void 
+{
+    var model:IModel = new SomeModel();
+    handleSignal(this, model.changedSignal, verify_user, 500, {name:"Tom", age:20});
+    model.changeUser("Tom", 20);
+}
+private function verify_user(event:SignalAsyncEvent, data:Object):void 
+{
+    assertEquals(event.args[ 0 ], data.name);
+    assertEquals(event.args[ 1 ], data.age);
+}
+</pre>
+
+h3. failOnSignal
+
+Use this method to ensure that some signal is not dispatched during an asynchronous test in a time period.
+
+<pre>
+[Test(async)] 
+public function not_changed():void 
+{
+    var model:IModel = new SomeModel();
+    failOnSignal(model.changedSignal);
+    model.doSomethingNotChange();
+}
+</pre>
+
+h3. registerFailureSignal
+
+Use this method to fail a test when a signal is dispatched. Think you are waiting for a success signal of a service, you will want to fail the test when the service's error signal is dispatched instead of waiting until timeout.
+
+<pre>
+[Test(async)] 
+public function call_service():void 
+{
+    var service:IService = new SomeService();
+    registerFailureSignal(this, service.failedSignal);
+    proceedOnSignal(this, service.successSignal);
+    service.call();
+}
+</pre>
