@@ -1,55 +1,50 @@
 package org.osflash.signals.utils
 {
     import org.flexunit.asserts.assertEquals;
-    import org.flexunit.async.Async;
     import org.osflash.signals.Signal;
-
-    import flash.display.Sprite;
     /**
      * @author eidiot
      */
     public class SignalAsyncTest
     {
         //======================================================================
-        //  Variables
+        //  Test methods
         //======================================================================
-        private var instance:SignalAsync;
-        private var onTest:Signal;
-        private var argus:Array;
-        //======================================================================
-        //  Public methods
-        //======================================================================
-        [Before]
-        public function setUp():void
+        [Test(async)]
+        public function test_proceedOnSignal():void 
         {
-            argus = [7, "test", [1, "2"], new Sprite()];
-            onTest = new Signal(int, String, Array, Sprite);
-            instance = new SignalAsync(onTest);
+            var signal:Signal = new Signal();
+            proceedOnSignal(this, signal);
+            signal.dispatch();
         }
-
-        [After]
-        public function tearDown():void
+        [Test(async)] 
+        public function test_handleSignal():void 
         {
-            instance = null;
-            onTest.removeAll();
+            var signal:Signal = new Signal();
+            handleSignal(this, signal, verify_handleSignal, 500, {"name":"Tom", "age":20});
+            signal.dispatch("Tom", 20);
         }
-
-        [Test(async,timeout="500")]
-        public function testAsync():void
+        [Test(async)] 
+        public function test_failOnSignal():void 
         {
-            Async.handleEvent(this, instance, SignalAsyncEvent.CALLED, signalCalledHandler);
-            onTest.dispatch(argus[0], argus[1], argus[2], argus[3]);
+            var signal:Signal = new Signal();
+            failOnSignal(this, signal);
+            //signal.dispatch();
+        }
+        [Test(async)] 
+        public function test_registerFailureSignal():void 
+        {
+            var signal:Signal = new Signal();
+            registerFailureSignal(this, signal);
+            //signal.dispatch();
         }
         //======================================================================
-        //  Event handlers
+        //  Verify methods
         //======================================================================
-        private function signalCalledHandler(event:SignalAsyncEvent, ...rest):void
+        private function verify_handleSignal(event:SignalAsyncEvent, data:Object):void 
         {
-            assertEquals("Length of argumengs should be the same", argus.length, event.args.length);
-            assertEquals(argus[0], event.args[0]);
-            assertEquals(argus[1], event.args[1]);
-            assertEquals(argus[2], event.args[2]);
-            assertEquals(argus[3], event.args[3]);
+        	assertEquals(event.args[0], data.name);
+        	assertEquals(event.args[1], data.age);
         }
     }
 }

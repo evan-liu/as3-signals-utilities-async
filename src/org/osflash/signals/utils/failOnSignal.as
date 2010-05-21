@@ -3,6 +3,7 @@ package org.osflash.signals.utils
     import org.flexunit.async.Async;
     import org.osflash.signals.Signal;
     /**
+     * Delegate function for <code>Async.failOnSignal()</code>.
      * @author eidiot
      */
     public function failOnSignal(testCase:Object, signal:Signal,
