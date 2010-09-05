@@ -1,6 +1,6 @@
 package org.osflash.signals.utils
 {
-    import org.osflash.signals.Signal;
+    import org.osflash.signals.ISignal;
 
     import flash.events.EventDispatcher;
     /**
@@ -16,7 +16,7 @@ package org.osflash.signals.utils
         /**
          * Construct a <code>SignalAsync</code>.
          */
-        public function SignalAsync(signal:Signal)
+        public function SignalAsync(signal:ISignal)
         {
             signal.addOnce(onCalled);
         }

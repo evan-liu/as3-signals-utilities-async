@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.osflash</groupId>
+    <artifactId>as3-signals-utilities-async</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>swc</packaging>
+    <name>as3-signals-utilities-async</name>
+
+    <properties>
+        <flex.sdk.version>4.1.0.16076</flex.sdk.version>
+        <flexmojos.version>3.7.1</flexmojos.version>
+    </properties>
+
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>tests</testSourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.flexmojos</groupId>
+                <artifactId>flexmojos-maven-plugin</artifactId>
+                <version>${flexmojos.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+
+                    <headlessServer>true</headlessServer>
+                    <verboseStacktraces>true</verboseStacktraces>
+                    <debug>true</debug>
+
+                    <includeTestFiles>
+                        <includeTestFile>*Test.as</includeTestFile>
+                    </includeTestFiles>
+
+                    <includeClasses>
+                        <class>org.osflash.signals.utils.failOnSignal</class>
+                        <class>org.osflash.signals.utils.handleSignal</class>
+                        <class>org.osflash.signals.utils.proceedOnSignal</class>
+                        <class>org.osflash.signals.utils.registerFailureSignal</class>
+                        <class>org.osflash.signals.utils.SignalAsync</class>
+                        <class>org.osflash.signals.utils.SignalAsyncEvent</class>
+                    </includeClasses>
+
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.adobe.flex</groupId>
+                        <artifactId>compiler</artifactId>
+                        <version>${flex.sdk.version}</version>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
+
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>flex-framework</artifactId>
+            <version>${flex.sdk.version}</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.osflash</groupId>
+            <artifactId>as3-signals</artifactId>
+            <version>0.7.0</version>
+            <type>swc</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.flexunit</groupId>
+            <artifactId>flexunit</artifactId>
+            <version>4.1.0-beta3</version>
+            <type>swc</type>
+        </dependency>
+
+    </dependencies>
+
+
+</project>
