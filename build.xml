@@ -12,7 +12,7 @@
       <source-path path-element="${FLEX_HOME}/frameworks"/>
       <external-library-path dir="${libs.dir}" append="true">
         <include name="flexunit.swc"/>
-        <include name="as3-signals-v0.6.swc"/>
+        <include name="as3-signals-v0.8.swc"/>
       </external-library-path>
       <include-sources dir="${src.dir}/${package.dir}" includes="*"/>
       <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
